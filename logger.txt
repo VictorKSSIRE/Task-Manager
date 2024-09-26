@@ -17,3 +17,8 @@ GET /
 GET /
 GET /
 GET /api/users
+GET /api/users
+POST /api/users
+GET /api/users
+POST /api/users
+GET /api/users

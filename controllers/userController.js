@@ -27,10 +27,20 @@ export const createUser = async (req, res) => {
     });
 
     req.on('end', async () => {
-        const { name, email } = JSON.parse(body);
-        const newUser = await userModel.createUser(name, email);
-        res.writeHead(201, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(newUser));
+        try {
+            const { name, email } = JSON.parse(body);
+            if (!name) {
+                throw new Error('Missing name argument');
+            } else if (!email) {
+                throw new Error('Missing email argument');
+            }
+            const newUser = await userModel.createUser(name, email);
+            res.writeHead(201, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(newUser));
+        } catch(error) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: 'Invalid request data', error: error.message }));
+        }
     });
 };
 

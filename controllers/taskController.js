@@ -3,14 +3,24 @@
 */
 
 // Simulate database with task array
-export const tasks = [
-    {id: 1, task: "Complete homework", completed: false},
-    {id: 2, task: "Go grocery shopping", completed: true}
-];
+// export const tasks = [
+//    {id: 1, task: "Complete homework", completed: false},
+//    {id: 2, task: "Go grocery shopping", completed: true}
+//];
+import * as taskModel from '../models/taskModel.js';
 
-// Fetching tasks - GET
-export const getTasks = (req, res) => {
+// Fetching all tasks - GET -- Needs update
+export const getAllTasks = (req, res) => {
     res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end(JSON.stringify(tasks));
+};
+
+
+// GET tasks for a specific user
+const getUserTasks = async (req, res) => {
+    const userId = req.headers['user-id']; // Assuming user ID is passed in headers
+    const tasks = await taskModel.getTasksByUser(userId);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(tasks));
 };
 

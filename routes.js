@@ -10,6 +10,8 @@ const routes = (req, res) => {
     const {url, method} = req;
     if (url === '/api/users' && method === 'GET') {
         userController.getUsers(req, res);
+    } else if(url === '/api/users' && method === 'POST') {
+        userController.createUser(req, res);
     } else if (url === '/api/tasks' && method === 'GET') {
         taskController.getTasks(req, res);
     } else if (url === '/api/tasks' && method === 'POST') {
